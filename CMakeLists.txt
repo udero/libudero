@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 #set(CMAKE_REQUIRED_FLAGS -std=c++14)
 # add_definitions(-std=gnu++11)
 
@@ -16,6 +16,9 @@ set(PROJECT_VENDOR_CONTACT "ysuga@ssr.tokyo")
 set(PROJECT_AUTHOR "ssr")
 set(PROJECT_AUTHOR_SHORT "ssr")
 
+if (WIN32)
+set(PCANBASIC_LIBDIR  "thirdparty/PCAN-Basic API" CACHE PATH "" FORCE)
+endif (WIN32)
 
 set(LIB_INSTALL_DIR "lib")
 
@@ -38,10 +41,12 @@ endif (BUILD_CAN)
 add_subdirectory(include)
 add_subdirectory(src)
 add_subdirectory(apps)
-if(FALSE)
-add_subdirectory(test)
-add_subdirectory(sample)
-add_subdirectory(devices)
 
+
+if(FALSE)
+  add_subdirectory(test)
+  add_subdirectory(sample)
+  add_subdirectory(devices)
 endif(FALSE)
+
 #set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}_test)

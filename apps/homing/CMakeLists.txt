@@ -15,7 +15,6 @@ include_directories(${PROJECT_SOURCE_DIR}/libpcanbasic/include)
 set(PCANBASIC_LIBDIR ${PROJECT_SOURCE_DIR}/libpcanbasic/PCAN_Basic_API/Win32/VC_LIB)
 
 link_directories(${PCANBASIC_LIBDIR})
-message(${PCANBASIC_LIBDIR})
 
 add_executable(${PROJECT_NAME}_homing homing.cpp)
 target_link_libraries(${PROJECT_NAME}_homing udero)
