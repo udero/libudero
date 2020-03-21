@@ -79,6 +79,7 @@ namespace ssr {
 		m_SockAddr.sin_addr.S_un.S_addr = INADDR_ANY;
 
 		if (bind(m_ServerSocket, (struct sockaddr *)&m_SockAddr, sizeof(m_SockAddr)) < 0) {
+			perror(NULL);
 			throw SocketException("bind failed.");
 		}
 

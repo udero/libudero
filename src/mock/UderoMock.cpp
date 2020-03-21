@@ -17,10 +17,10 @@ class UderoMock : public UderoImpl {
 public:
   UderoMock(const std::string& filename) : UderoImpl(filename) {
     UTRACE("UderoMock::UderoMock() called");
-    jointPos_.push_back(0);
     numJoints = 7;
     for (int i = 0; i < numJoints; i++) {
-      ppJoints[i] = new UderoMockJoint(i+1, g_gear_ratio[i], encoder_res[i], angle_min_max[i][0], angle_min_max[i][1]);
+		jointPos_.push_back(0);
+		ppJoints[i] = new UderoMockJoint(i+1, g_gear_ratio[i], encoder_res[i], angle_min_max[i][0], angle_min_max[i][1]);
     }
     UTRACE("UderoMock::UderoMock() ended");
   }

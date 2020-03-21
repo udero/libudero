@@ -2,8 +2,10 @@ set(_srcs PCANUSB.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../libepos/libcanopen/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../PCAN_Basic_API/include)
+include_directories(${PCANBASIC_ROOT}/include)
 
+message("PCANBAISC")
+message(${PCANBASIC_ROOT})
 if (WIN32)
 link_directories(${PCANBASIC_LIBDIR})
 set(CAN_LIBRARIES PCANBasic)

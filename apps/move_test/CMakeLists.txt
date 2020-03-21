@@ -12,9 +12,7 @@ include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
 
 
 include_directories(${PROJECT_SOURCE_DIR}/libpcanbasic/include)
-set(PCANBASIC_LIBDIR ${PROJECT_SOURCE_DIR}/libpcanbasic/PCAN_Basic_API/Win32/VC_LIB)
-
-link_directories(${PCANBASIC_LIBDIR})
+link_directories(${PCANBASIC_LIBDIRS})
 
 add_executable(${PROJECT_NAME}_move_test move_test.cpp)
 target_link_libraries(${PROJECT_NAME}_move_test udero)

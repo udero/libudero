@@ -8,11 +8,16 @@
 CMakeを使います。CMakeはバージョン3.10以降を使って下さい。
 
 ### Windows 10での注意点
+#### PCAN-BASIC APIのインストール
 PCAN-BASIC APIに依存しています。PCAN BASIC APIはPeakSystem社が提供するCAN-USB変換アダプタ用のライブラリです。
 Peak Systems社のウェブサイトからダウンロードしてください。
 https://www.peak-system.com/
+ダウンロードしたzipを展開して好きな場所に配置してください。
+この位置を後でCMakeの設定に反映させる必要があります。
+また、展開したフォルダにあるReadMe.txtを読んで、DLLファイルを配置してください。
 
-CMakeでプロジェクトを生成する場合は、PCAN BASIC APIのディレクトリを設定する必要があります。
+#### CMakeでの設定
+CMakeでプロジェクトを生成するときに上記のようにPCAN BASIC APIのディレクトリを設定する必要があります。
 CMake-guiでConfigureしたのちに、PCANBASIC_LIBDIRの値を、PCAN-BASIC APIフォルダに設定してから、再度Configure/Generateを行ってください。
 
 

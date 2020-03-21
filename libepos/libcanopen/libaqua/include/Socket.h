@@ -11,6 +11,9 @@
 #include <WS2tcpip.h>
 #include <windows.h>
 
+
+#pragma comment(lib, "Ws2_32.lib")
+
 #include <stdio.h>
 #else // WIN32
 #include <unistd.h>

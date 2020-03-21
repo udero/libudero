@@ -1,9 +1,8 @@
+#include "ServerSocket.h"
 #include <stdlib.h>
-
 #include <iostream>
 #include <sstream>
 #include "Thread.h"
-#include "ServerSocket.h"
 #include "udero/Udero.h"
 
 
@@ -11,7 +10,7 @@ using namespace reharo;
 
 void homing_wrist(IUdero* udero, int id);
 
-int port = 43000;
+int port = 8000;
 
 void write_line(ssr::Socket& s, const std::string& line) {
   s.Write(line.c_str(), line.length());
@@ -98,6 +97,7 @@ std::string trim(const std::string& string, const char* trimCharacterList = " \t
 
 int main(const int argc_, const char* argv_[]) {
   try {
+	  ssr::SocketInitializer();
     UderoConnectionProfile prof = parseArgs(argc_, argv_);
     IUdero* udero = createUdero(prof);
     int argc = prof.unknown_args.size();

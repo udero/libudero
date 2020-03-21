@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <vector>
 #include "Thread.h"
-#define LINUX 1
+//#define LINUX 1
 #include "Joystick.h"
 #include "udero/Udero.h"
 
@@ -246,7 +246,11 @@ int main(const int argc, const char* argv[]) {
     ssr::Joystick* joy;
     while(true) {
       try {
+#ifdef WIN32
+
+#else
 	joy = new ssr::Joystick("/dev/input/js0");
+#endif
 	break;
       } catch (std::exception& ex) {
 	std::cout << __FILE__ << "Exception in initializing Joystick:" << ex.what() << std::endl;
