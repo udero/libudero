@@ -11,7 +11,8 @@
 #include <exception>
 
 #ifdef WIN32
-#include <windows.h>
+#include <Windows.h>
+
 #define THREAD_ROUTINE DWORD WINAPI
 #else
 #include <time.h>
@@ -40,7 +41,7 @@ namespace ssr {
   /**
    *
    */
-  class Mutex {
+  class AQUA_API Mutex {
   private:
 #ifdef WIN32
     HANDLE m_Handle;
@@ -79,6 +80,7 @@ namespace ssr {
 				return false;
 			}
 		}
+        return true;
 
 #else
       pthread_mutex_lock(&m_Handle);

@@ -45,7 +45,7 @@ public:
       m_pCANopen = new canopen::CANopen(m_pCAN);
       m_pCANopen->registerNodeFactory(new maxon::EPOSFactory());
       numJoints = 7;
-      for (int i = 0; i < numJoints; i++) {
+      for (uint32_t i = 0; i < numJoints; i++) {
 	    UVERBOSE("initializing Joint[%d]", i);
 	    ppJoints[i] = new UderoCANJoint(i + 1, 
 					m_pCANopen,

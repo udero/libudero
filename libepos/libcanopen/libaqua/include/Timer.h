@@ -37,7 +37,7 @@ namespace ssr {
    * @brief Timer class
    * @endif
    */
-  class Timer
+  class AQUA_API Timer
   {
   private:
 #ifdef WIN32

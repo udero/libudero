@@ -12,7 +12,7 @@ int main(const int argc_, const char* argv_[]) {
       technotools::initLogger(argc_, argv_);
     UderoConnectionProfile prof = parseArgs(argc_, argv_);
     IUdero* udero = createUdero(prof);
-    int argc = prof.unknown_args.size();
+    size_t argc = prof.unknown_args.size();
     std::vector<std::string> argv = prof.unknown_args;
     ssr::Thread::Sleep(1000);
 

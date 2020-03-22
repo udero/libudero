@@ -11,7 +11,7 @@ namespace technotools {
   UderoException(const std::string& msg) : msg(msg) {}
   UderoException(const char* msg): msg(msg) {}
 
-    virtual ~UderoException() throw() {}
+    virtual ~UderoException() {}
 
   public:
     const char* what() const throw() {

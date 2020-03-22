@@ -18,7 +18,7 @@ public:
   UderoMock(const std::string& filename) : UderoImpl(filename) {
     UTRACE("UderoMock::UderoMock() called");
     numJoints = 7;
-    for (int i = 0; i < numJoints; i++) {
+    for (uint32_t i = 0; i < numJoints; i++) {
 		jointPos_.push_back(0);
 		ppJoints[i] = new UderoMockJoint(i+1, g_gear_ratio[i], encoder_res[i], g_angle_min_max[i][0], g_angle_min_max[i][1]);
     }
