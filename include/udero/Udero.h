@@ -23,7 +23,7 @@
 
 
 
-namespace reharo {
+namespace technotools {
 
   /**
    * エラー状態変数

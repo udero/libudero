@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace reharo {
+namespace technotools {
 
   class UderoException : public std::exception {
   private:

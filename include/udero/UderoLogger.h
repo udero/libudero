@@ -51,7 +51,7 @@ LIBUDERO_API void UDERO_LOG_PRINT(UDERO_LOGLEVEL level, const char* format, ...)
 
 
 
-namespace reharo {
+namespace technotools {
   LIBUDERO_API void initLogger(const int argc, const char* argv[]);
   LIBUDERO_API void finiLogger();
 };

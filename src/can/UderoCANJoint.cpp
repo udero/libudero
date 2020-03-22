@@ -1,7 +1,7 @@
 
 #include "udero/UderoLogger.h"
 #include "UderoCANJoint.h"
-using namespace reharo;
+using namespace technotools;
 
 UderoCANJoint::UderoCANJoint(const uint32_t& id, canopen::CANopen* pCANopen, double gearRatio, double EncoderRes, const UderoREAL min, const UderoREAL max):
   m_CANID(id), m_gearRatio(gearRatio), m_encoderRes(EncoderRes),

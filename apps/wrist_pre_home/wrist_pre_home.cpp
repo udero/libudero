@@ -4,7 +4,7 @@
 #include "Thread.h"
 #include "udero/Udero.h"
 
-using namespace reharo;
+using namespace technotools;
 
 int main(const int argc_, const char* argv_[]) {
   try {
@@ -14,9 +14,9 @@ int main(const int argc_, const char* argv_[]) {
     std::vector<std::string> argv = prof.unknown_args;
     ssr::Thread::Sleep(1000);
 
-    udero->setJointMode(4, reharo::MODE_POSITION);
+    udero->setJointMode(4, technotools::MODE_POSITION);
     ssr::Thread::Sleep(100);
-    udero->setJointMode(5, reharo::MODE_POSITION);
+    udero->setJointMode(5, technotools::MODE_POSITION);
     ssr::Thread::Sleep(100);
     
     bool initial = (udero->getJointDigitalInput(5) & 0x0002) > 0;
@@ -70,7 +70,7 @@ int main(const int argc_, const char* argv_[]) {
 
 void homing_wrist(IUdero* udero, int id) {
     if (id == 4) {
-        udero->setJointMode(5, reharo::MODE_VELOCITY);
+        udero->setJointMode(5, technotools::MODE_VELOCITY);
         udero->setJointAcceleration(5, 10);
         udero->goHomeJoint(4);
         while (1) {
@@ -83,7 +83,7 @@ void homing_wrist(IUdero* udero, int id) {
         udero->quickStopJoint(5);
     }
     else {
-        udero->setJointMode(4, reharo::MODE_VELOCITY);
+        udero->setJointMode(4, technotools::MODE_VELOCITY);
         udero->setJointAcceleration(4, 10);
         udero->goHomeJoint(5);
         while (1) {

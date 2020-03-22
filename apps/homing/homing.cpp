@@ -4,7 +4,7 @@
 #include "Thread.h"
 #include "udero/Udero.h"
 
-using namespace reharo;
+using namespace technotools;
 
 void homing_wrist(IUdero* udero, int id, int force);
 
@@ -49,10 +49,10 @@ int main(const int argc, const char* argv[]) {
       }
 	
       if (id == 4 || id == 5) {
-	udero->setJointMode(id, reharo::MODE_POSITION);
+	udero->setJointMode(id, technotools::MODE_POSITION);
 	udero->spin();
 	//ssr::Thread::Sleep(100);
-	//udero->setJointMode(5, reharo::MODE_POSITION);
+	//udero->setJointMode(5, technotools::MODE_POSITION);
 	udero->spin();
 	ssr::Thread::Sleep(100);
 	homing_wrist(udero, id, force);
@@ -63,10 +63,10 @@ int main(const int argc, const char* argv[]) {
 	  return -ALREADY_HOMED;
 	} else {
 	  std::cout << "Set Joint Mode " << std::endl;
-	  udero->setJointMode(id, reharo::MODE_POSITION);
+	  udero->setJointMode(id, technotools::MODE_POSITION);
 	  if (here_is_zero) {
 	    std::cout << "Set Current Position as Zero" << std::endl;
-	    udero->setJointHomingMode(id, reharo::ABSOLUTE_POSITION);
+	    udero->setJointHomingMode(id, technotools::ABSOLUTE_POSITION);
 	  }
 	  udero->goHomeJoint(id);
 	}
@@ -93,7 +93,7 @@ void homing_wrist(IUdero* udero, int id, int force) {
 	std::cout << "Already Homed" << std::endl;
 	return;
       }
-        udero->setJointMode(5, reharo::MODE_VELOCITY);
+        udero->setJointMode(5, technotools::MODE_VELOCITY);
 	udero->spin();
         udero->setJointAcceleration(5, 10);	
 	udero->spin();
@@ -116,7 +116,7 @@ void homing_wrist(IUdero* udero, int id, int force) {
 	return;
       }
 
-        udero->setJointMode(4, reharo::MODE_VELOCITY);
+        udero->setJointMode(4, technotools::MODE_VELOCITY);
 	udero->spin();
         udero->setJointAcceleration(4, 10);
 	udero->spin();

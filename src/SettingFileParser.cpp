@@ -9,7 +9,6 @@
 
 void parseSettingFile(const std::string& filename) {
   UINFO("Setting File (%s)", filename.c_str());
-  //  std::cout << "Setting filename is " << filename << std::endl;
 
   ParamLoader loader(filename.c_str());
   
@@ -37,17 +36,19 @@ void parseSettingFile(const std::string& filename) {
   g_gear_ratio[5] = atof(loader.get("GEAR_RATIO_J6", "116.64").c_str());
   g_gear_ratio[6] = atof(loader.get("GEAR_RATIO_J7", "34.392").c_str());
 
-  /*
+
+
   for(int i = 0;i < 6;i++) {
-    std::cout << "FOLDOUT_ANGLE_J" << i+1 << " = " << g_foldOutAngle[i] << std::endl;
+    UINFO(" - FOLDOUT_ANGLE_J%d = %f", i+1, g_foldOutAngle[i]);
   }
 
   for(int i = 0;i < 6;i++) {
-    std::cout << "FOLDIN_ANGLE_J" << i+1 << " = " << g_foldInAngle[i] << std::endl;
+    UINFO(" - FOLDIN_ANGLE_J%d = %f", i + 1, g_foldInAngle[i]);
   }
+
+  UINFO(" - FOLDING_SPEED = %f", g_foldingSpeed);
 
   for(int i = 0;i < 7;i++) {
-    std::cout << "GEAR_RATIO_J" << i+1 << " = " << g_gear_ratio[i] << std::endl;
+    UINFO(" - GEAR_RATIO_J%d = %f", i + 1, g_gear_ratio[i]);
   }
-  */
 }

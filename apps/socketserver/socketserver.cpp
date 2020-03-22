@@ -6,7 +6,7 @@
 #include "udero/Udero.h"
 
 
-using namespace reharo;
+using namespace technotools;
 
 void homing_wrist(IUdero* udero, int id);
 
@@ -129,12 +129,12 @@ int main(const int argc_, const char* argv_[]) {
 	    break;
 	  } else if (cmd == "lock") {
 	    for(int i = 0;i < 7;i++) {
-	      udero->setJointMode(i, reharo::MODE_POSITION);
+	      udero->setJointMode(i, technotools::MODE_POSITION);
 	    }
 	    write_line(s, "lock OK");
 	  } else if (cmd == "unlock") {
 	    for(int i = 0;i < 7;i++) {
-	      udero->setJointMode(i, reharo::MODE_INACTIVE);
+	      udero->setJointMode(i, technotools::MODE_INACTIVE);
 	    }
 	    write_line(s, "unlock OK");
 	  } else if (cmd == "foldin") {

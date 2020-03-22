@@ -4,7 +4,7 @@
 #include "Thread.h"
 #include "udero/Udero.h"
 
-using namespace reharo;
+using namespace technotools;
 
 void homing_wrist(IUdero* udero, int id, int force);
 
@@ -31,7 +31,7 @@ int main(const int argc, const char* argv[]) {
       if (udero->isJointHomed(id)) {
 	return -ALREADY_HOMED;
       } else {
-	udero->setJointMode(id, reharo::MODE_POSITION);
+	udero->setJointMode(id, technotools::MODE_POSITION);
 	udero->goHomeJoint(id);
       }
       

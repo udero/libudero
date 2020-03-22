@@ -8,7 +8,7 @@
 #include "UderoImpl.h"
 #include "UderoMock.h"
 
-namespace reharo {
+namespace technotools {
 
   class UderoMockJoint : public UderoJoint {
   private:
@@ -20,6 +20,9 @@ namespace reharo {
     UderoREAL velocityBuffer;
     UderoREAL m_Position;
 
+  private:
+      UderoREAL m_MinAngle;
+      UderoREAL m_MaxAngle;
   public:
 
     // do nothing
@@ -85,11 +88,14 @@ namespace reharo {
     virtual void moveVelocity(const UderoREAL targetVelocity);
     virtual void quickStop();
     virtual void enableOperation();
-  private:
-    UderoREAL m_MinAngle;
-    UderoREAL m_MaxAngle;
+
+  public:
     virtual void setMinMax(const UderoREAL min, const UderoREAL max) {
       m_MinAngle = min; m_MaxAngle = max;
+    }
+    virtual void getMinMax(UderoREAL* min, UderoREAL* max) {
+        *min = m_MinAngle;
+        *max = m_MaxAngle;
     }
 
 	virtual uint16_t getDigitalInput() {

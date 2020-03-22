@@ -17,7 +17,22 @@
 #include "can_param.h"
 
 
-using namespace reharo;
+using namespace technotools;
+
+
+double g_angle_min_max[7][2] = {
+  {-INFINITY, INFINITY},
+  {-1.5, M_PI / 2},
+  { 0, 3.1 },
+  { -INFINITY, INFINITY },
+  { -INFINITY, INFINITY },
+  { -INFINITY, INFINITY },
+  //{ 0, 60 }
+  { -90, 0 }
+};
+
+
+
 
 class UderoCAN : public UderoImpl {
 private:
@@ -31,18 +46,18 @@ public:
       m_pCANopen->registerNodeFactory(new maxon::EPOSFactory());
       numJoints = 7;
       for (int i = 0; i < numJoints; i++) {
-	UVERBOSE("initializing Joint[%d]", i);
-	ppJoints[i] = new UderoCANJoint(i + 1, 
+	    UVERBOSE("initializing Joint[%d]", i);
+	    ppJoints[i] = new UderoCANJoint(i + 1, 
 					m_pCANopen,
 					g_gear_ratio[i], encoder_res[i], 
-					angle_min_max[i][0], angle_min_max[i][1]);
+					g_angle_min_max[i][0], g_angle_min_max[i][1]);
       }
       ppJoints[0]->setPolar(-1);
       ppJoints[1]->setPolar(-1);
       ppJoints[3]->setPolar(-1);
       ppJoints[5]->setPolar(-1);
       for (int i = 0;i < 6;i++) {
-	jointPos_.push_back(0);
+	    jointPos_.push_back(0);
       }
     } catch (std::exception& ex) {
       std::cerr << "Exception when UderoCAN::UderoCAN()" << std::endl;
@@ -63,7 +78,7 @@ public:
 };
 
 
-IUdero* createCANUdero(const reharo::UderoConnectionProfile& profile) {
+IUdero* createCANUdero(const technotools::UderoConnectionProfile& profile) {
   UINFO("createCANUdero called");
   UINFO(" - canFilename    = %s", profile.canFilename.c_str());
   UINFO(" - canDeviceID    = %x", profile.canDeviceID);

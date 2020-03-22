@@ -4,7 +4,7 @@
 #include "Thread.h"
 #include "udero/Udero.h"
 
-using namespace reharo;
+using namespace technotools;
 
 void homing_wrist(IUdero* udero, int id);
 
@@ -54,7 +54,7 @@ int main(const int argc_, const char* argv_[]) {
 
 void homing_wrist(IUdero* udero, int id) {
     if (id == 4) {
-        udero->setJointMode(5, reharo::MODE_VELOCITY);
+        udero->setJointMode(5, technotools::MODE_VELOCITY);
         udero->setJointAcceleration(5, 10);
         udero->goHomeJoint(4);
         while (1) {
@@ -67,7 +67,7 @@ void homing_wrist(IUdero* udero, int id) {
         udero->quickStopJoint(5);
     }
     else {
-        udero->setJointMode(4, reharo::MODE_VELOCITY);
+        udero->setJointMode(4, technotools::MODE_VELOCITY);
         udero->setJointAcceleration(4, 10);
         udero->goHomeJoint(5);
         while (1) {

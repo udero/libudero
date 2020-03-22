@@ -10,4 +10,4 @@
 
 #include "udero/Udero.h"
 
-LIBUDERO_API reharo::IUdero* createCANUdero(const reharo::UderoConnectionProfile& profile);
+LIBUDERO_API technotools::IUdero* createCANUdero(const technotools::UderoConnectionProfile& profile);
