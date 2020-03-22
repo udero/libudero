@@ -24,6 +24,34 @@ CMake-guiでConfigureしたのちに、PCANBASIC_LIBDIRの値を、PCAN-BASIC APIフォルダに
 ## テスト用アプリ
 appsディレクトリには、Uderoを利用するためのコンパクトなコマンド群を作成するためのソースコードがあります。
 これらのコードは、libuderoライブラリを使うためのサンプルにもなっています。コードを確認して使ってください。
+主なものは以下の通りです。
+
+- close_gripper グリッパーを閉じます
+- digital_input 関節のデジタル入力を画面に表示します。
+- foldin 折りたたみ状態にします
+- foldout 折りたたみ状態から展開状態、もしくは任意の姿勢から展開姿勢に移動します。
+- free 全関節をサーボOFFします
+- get_angles 関節角度を取得します
+- homing ホーミングして原点を割り出します。
+- is_homed ホーミングが終わっているかを確認します
+- joint_get_state 現在の関節の状態を出力します
+- joint_set_state 関節の状態を変更します。
+- joy_joint_ctrl ゲームパッドで各関節を動かします。
+- lock 全関節をサーボONします。
+- move_gripper グリッパーを任意の位置まで動かします
+- open_gripper グリッパーを全開します。
+- set_angles 各関節を引数の角度まで移動させます。
+- socketserver ソケット通信用のサーバーです。
+- waitstopped ロボットの関節が目標値に到達して停止するまで待ちます。
+
+これらのアプリはudero_{ディレクトリ名} というexeファイルを生成します。
+
+## ビルド済みパッケージ
+以下のアドレスからWindows用のビルド済みバイナリが入手できます。
+Visual Studioをインストールしていない環境で動作させる場合は、必要に応じてVisual Studioの再頒布用ライブラリをインストールしてください。
+
+https://github.com/udero/libudero_dist
+
 
 ## Authors
 
