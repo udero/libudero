@@ -5,6 +5,7 @@
 #include <vector>
 #include "Thread.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
 using namespace technotools;
 
@@ -13,6 +14,7 @@ using namespace technotools;
 
 int main(const int argc, const char* argv[]) {
   try {
+      technotools::initLogger(argc, argv);
     std::cout << "Udero Joint State version 1.0.0" << std::endl;
     UderoConnectionProfile prof = parseArgs(argc, argv);
 

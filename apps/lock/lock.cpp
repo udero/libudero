@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Thread.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
 using namespace technotools;
 
@@ -15,6 +16,7 @@ enum RESULT_T {
 
 int main(const int argc_, const char* argv_[]) {
   try {
+      technotools::initLogger(argc_, argv_);
     UderoConnectionProfile prof = parseArgs(argc_, argv_);
     IUdero* udero = createUdero(prof);
     int argc = prof.unknown_args.size();

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Thread.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
 using namespace technotools;
 
@@ -11,6 +12,7 @@ void homing_wrist(IUdero* udero, int id);
 
 int main(const int argc, const char* argv[]) {
   try {
+      technotools::initLogger(argc, argv);
     UderoConnectionProfile prof = parseArgs(argc, argv);
     IUdero* udero = createUdero(prof);
     std::cout << "Starting Move Test" << std::endl;

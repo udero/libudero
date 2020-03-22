@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Thread.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
 
 using namespace technotools;
@@ -97,6 +98,7 @@ std::string trim(const std::string& string, const char* trimCharacterList = " \t
 
 int main(const int argc_, const char* argv_[]) {
   try {
+	  technotools::initLogger(argc_, argv_);
 	  ssr::SocketInitializer();
     UderoConnectionProfile prof = parseArgs(argc_, argv_);
     IUdero* udero = createUdero(prof);
