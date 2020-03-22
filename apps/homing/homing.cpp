@@ -83,6 +83,7 @@ int main(const int argc, const char* argv[]) {
     deleteUdero(udero);
   } catch (std::exception &ex) {
     std::cout << "udero2:homing: Exception: " << ex.what() << std::endl;
+    UERROR("Exception:%s", ex.what());
     return -EXCEPTION_OCCURRED;
   }
   return 0;

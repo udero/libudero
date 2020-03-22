@@ -7,8 +7,6 @@
 
 using namespace technotools;
 
-void homing_wrist(IUdero* udero, int id, int force);
-
 enum RESULT_T {
   ALREADY_HOMED = 1,
   EXCEPTION_OCCURRED = 2,
@@ -41,6 +39,7 @@ int main(const int argc, const char* argv[]) {
     deleteUdero(udero);
   } catch (std::exception &ex) {
     std::cout << "Exception: " << ex.what() << std::endl;
+    UERROR("Exception:%s", ex.what());
     return -EXCEPTION_OCCURRED;
   }
   return 0;

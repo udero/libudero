@@ -58,6 +58,7 @@ int main(const int argc, const char* argv[]) {
   } catch (std::exception &ex) {
     std::cout << __FILE__ << "Exception: " << ex.what() << std::endl;
     std::cout << __FILE__ << "Error Exit(-1)" << std::endl;
+    UERROR("Exception:%s", ex.what());
     return -1;
   }
   return 0;

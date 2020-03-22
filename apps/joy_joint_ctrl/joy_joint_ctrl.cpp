@@ -321,6 +321,7 @@ int main(const int argc, const char* argv[]) {
     std::cout << __FILE__ << "Exception: " << ex.what() << std::endl;
     std::cout << __FILE__ << "Error Exit(-1)" << std::endl;
     ledmatrix_write(filename, E);
+    UERROR("Exception:%s", ex.what());
     return -1;
   }
   return 0;
