@@ -4,6 +4,10 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 set(CMAKE_SKIP_BUILD_RPATH  TRUE)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 # when building, don't use the install RPATH already
 # (but later on when installing)
 # SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 

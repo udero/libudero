@@ -1,3 +1,10 @@
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/libpcanbasic/include)
+include_directories(${PROJECT_SOURCE_DIR}/libaqua/include)
+link_directories(${PCANBASIC_LIBDIRS})
+
+
 add_subdirectory(homing)
 add_subdirectory(multihoming)
 add_subdirectory(free)
