@@ -1,11 +1,12 @@
-
 /**
  * Udero.h
  * 
  * libuderoをつかうためのメインインターフェースとヘルパー関数
  *
+ * createUdero関数を使ってIUderoインターフェースのオブジェクトを生成して使う。詳しくはappsのサンプルを参照すること。
+ *
  * @author Yuki Suga
- * @copyright Techno Tool, 2015
+ * @copyright Technotools, 2015
  */
 
 #pragma once
