@@ -8,18 +8,24 @@
 CMake‚ğg‚¢‚Ü‚·BCMake‚Íƒo[ƒWƒ‡ƒ“3.10ˆÈ~‚ğg‚Á‚Ä‰º‚³‚¢B
 
 ### Windows 10‚Å‚Ì’ˆÓ“_
+#### PeakSystem PCAN-USBƒhƒ‰ƒCƒo‚ÌƒCƒ“ƒXƒg[ƒ‹
+Udero‚É•t‘®‚µ‚Ä‚¢‚éPCAN-USB‚Ìƒhƒ‰ƒCƒo‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚ÄAWindowsƒVƒXƒeƒ€‚ª•ÏŠ·ƒP[ƒuƒ‹‚ğ”F¯‚µ‚Ä‚¢‚é‚±‚Æ‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
+
 #### PCAN-BASIC API‚ÌƒCƒ“ƒXƒg[ƒ‹
 PCAN-BASIC API‚ÉˆË‘¶‚µ‚Ä‚¢‚Ü‚·BPCAN BASIC API‚ÍPeakSystemĞ‚ª’ñ‹Ÿ‚·‚éCAN-USB•ÏŠ·ƒAƒ_ƒvƒ^—p‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚Å‚·B
 Peak SystemsĞ‚ÌƒEƒFƒuƒTƒCƒg‚©‚çƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚­‚¾‚³‚¢B
 https://www.peak-system.com/
 ƒ_ƒEƒ“ƒ[ƒh‚µ‚½zip‚ğ“WŠJ‚µ‚ÄD‚«‚ÈêŠ‚É”z’u‚µ‚Ä‚­‚¾‚³‚¢B
 ‚±‚ÌˆÊ’u‚ğŒã‚ÅCMake‚Ìİ’è‚É”½‰f‚³‚¹‚é•K—v‚ª‚ ‚è‚Ü‚·B
-‚Ü‚½A“WŠJ‚µ‚½ƒtƒHƒ‹ƒ_‚É‚ ‚éReadMe.txt‚ğ“Ç‚ñ‚ÅADLLƒtƒ@ƒCƒ‹‚ğ”z’u‚µ‚Ä‚­‚¾‚³‚¢B
+‚Ü‚½A“WŠJ‚µ‚½ƒtƒHƒ‹ƒ_‚É‚ ‚éReadMe.txt‚ğ“Ç‚ñ‚ÅADLLƒtƒ@ƒCƒ‹‚ğSystem32ƒfƒBƒŒƒNƒgƒŠ‚È‚Ç‚É”z’u‚µ‚Ä‚­‚¾‚³‚¢B
 
 #### CMake‚Å‚Ìİ’è
 CMake‚ÅƒvƒƒWƒFƒNƒg‚ğ¶¬‚·‚é‚Æ‚«‚Éã‹L‚Ì‚æ‚¤‚ÉPCAN BASIC API‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğİ’è‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-CMake-gui‚ÅConfigure‚µ‚½‚Ì‚¿‚ÉAPCANBASIC_LIBDIR‚Ì’l‚ğAPCAN-BASIC APIƒtƒHƒ‹ƒ_‚Éİ’è‚µ‚Ä‚©‚çAÄ“xConfigure/Generate‚ğs‚Á‚Ä‚­‚¾‚³‚¢B
+CMake-gui‚ÅConfigure‚µ‚½‚Ì‚¿‚ÉAPCANBASIC_ROOT‚Ì’l‚ğAPCAN-BASIC APIƒtƒHƒ‹ƒ_‚Éİ’è‚µ‚Ä‚©‚çAGenerate‚ğs‚Á‚Ä‚­‚¾‚³‚¢B
 
+
+#### Visual Studio‚Å‚Ìƒrƒ‹ƒh
+CMake‚Åİ’è‚µ‚½ƒo[ƒWƒ‡ƒ“‚ÌVisual Studio‚Åƒrƒ‹ƒh‚µ‚Ä‚­‚¾‚³‚¢BŠJ”­Ò‚ÍVisual Studio 2019 (x64) ‚Å‚Ì“®ìŠm”F‚ğs‚Á‚Ä‚¢‚Ü‚·B
 
 ## ƒeƒXƒg—pƒAƒvƒŠ
 appsƒfƒBƒŒƒNƒgƒŠ‚É‚ÍAUdero‚ğ—˜—p‚·‚é‚½‚ß‚ÌƒRƒ“ƒpƒNƒg‚ÈƒRƒ}ƒ“ƒhŒQ‚ğì¬‚·‚é‚½‚ß‚Ìƒ\[ƒXƒR[ƒh‚ª‚ ‚è‚Ü‚·B
@@ -27,15 +33,15 @@ appsƒfƒBƒŒƒNƒgƒŠ‚É‚ÍAUdero‚ğ—˜—p‚·‚é‚½‚ß‚ÌƒRƒ“ƒpƒNƒg‚ÈƒRƒ}ƒ“ƒhŒQ‚ğì¬‚·‚é‚½‚ß‚
 å‚È‚à‚Ì‚ÍˆÈ‰º‚Ì’Ê‚è‚Å‚·B
 
 - close_gripper ƒOƒŠƒbƒp[‚ğ•Â‚¶‚Ü‚·
-- digital_input ŠÖß‚ÌƒfƒWƒ^ƒ‹“ü—Í‚ğ‰æ–Ê‚É•\¦‚µ‚Ü‚·B
-- foldin Ü‚è‚½‚½‚İó‘Ô‚É‚µ‚Ü‚·
-- foldout Ü‚è‚½‚½‚İó‘Ô‚©‚ç“WŠJó‘ÔA‚à‚µ‚­‚Í”CˆÓ‚Ìp¨‚©‚ç“WŠJp¨‚ÉˆÚ“®‚µ‚Ü‚·B
-- free ‘SŠÖß‚ğƒT[ƒ{OFF‚µ‚Ü‚·
-- get_angles ŠÖßŠp“x‚ğæ“¾‚µ‚Ü‚·
-- homing ƒz[ƒ~ƒ“ƒO‚µ‚ÄŒ´“_‚ğŠ„‚èo‚µ‚Ü‚·B
-- is_homed ƒz[ƒ~ƒ“ƒO‚ªI‚í‚Á‚Ä‚¢‚é‚©‚ğŠm”F‚µ‚Ü‚·
-- joint_get_state Œ»İ‚ÌŠÖß‚Ìó‘Ô‚ğo—Í‚µ‚Ü‚·
-- joint_set_state ŠÖß‚Ìó‘Ô‚ğ•ÏX‚µ‚Ü‚·B
+- digital_input ŠÖß‚ÌƒfƒWƒ^ƒ‹“ü—Í‚ğ‰æ–Ê‚É•\¦
+- foldin Ü‚è‚½‚½‚İó‘Ô‚ÉˆÚ“®
+- foldout Ü‚è‚½‚½‚İó‘Ô‚©‚ç“WŠJó‘ÔA‚à‚µ‚­‚Í”CˆÓ‚Ìp¨‚©‚ç“WŠJp¨‚ÉˆÚ“®
+- free ‘SŠÖß‚ğƒT[ƒ{OFF
+- get_angles ŠÖßŠp“x‚ğæ“¾
+- homing ƒz[ƒ~ƒ“ƒO‚µ‚ÄŒ´“_‚ğŠ„‚èo‚µ
+- is_homed ƒz[ƒ~ƒ“ƒO‚ªI‚í‚Á‚Ä‚¢‚é‚©‚ğŠm”F
+- joint_get_state Œ»İ‚ÌŠÖß‚Ìó‘Ô‚ğo—Í
+- joint_set_state ŠÖß‚Ìó‘Ô‚ğ•ÏX
 - joy_joint_ctrl ƒQ[ƒ€ƒpƒbƒh‚ÅŠeŠÖß‚ğ“®‚©‚µ‚Ü‚·B
 - lock ‘SŠÖß‚ğƒT[ƒ{ON‚µ‚Ü‚·B
 - move_gripper ƒOƒŠƒbƒp[‚ğ”CˆÓ‚ÌˆÊ’u‚Ü‚Å“®‚©‚µ‚Ü‚·
@@ -51,6 +57,24 @@ appsƒfƒBƒŒƒNƒgƒŠ‚É‚ÍAUdero‚ğ—˜—p‚·‚é‚½‚ß‚ÌƒRƒ“ƒpƒNƒg‚ÈƒRƒ}ƒ“ƒhŒQ‚ğì¬‚·‚é‚½‚ß‚
 Visual Studio‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¢‚È‚¢ŠÂ‹«‚Å“®ì‚³‚¹‚éê‡‚ÍA•K—v‚É‰‚¶‚ÄVisual Studio‚ÌÄ”Ğ•z—pƒ‰ƒCƒuƒ‰ƒŠ‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
 
 https://github.com/udero/libudero_dist
+
+‚Ü‚½APCAN-USB‚Ìƒhƒ‰ƒCƒoA‚¨‚æ‚ÑPCAN-BASIC‚ÌDLLƒtƒ@ƒCƒ‹‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB
+ŠeX‚ğƒ_ƒEƒ“ƒ[ƒh‚µ‚ÄƒCƒ“ƒXƒg[ƒ‹‚ğs‚Á‚Ä‚­‚¾‚³‚¢B
+
+## ƒfƒBƒŒƒNƒgƒŠ‚Ì\¬
+
+- libuder
+  - apps ƒeƒXƒg—p‚ÌƒAƒvƒŠŒQ‚Ìƒ\[ƒXƒR[ƒh‚ª“ü‚Á‚½ƒfƒBƒŒƒNƒgƒŠ
+  - include uderoƒ‰ƒCƒuƒ‰ƒŠ‚Ìƒwƒbƒ_[ƒtƒ@ƒCƒ‹
+  - libaqua Thread‚âSleep‚È‚Ç‚Ìƒvƒ‰ƒbƒgƒtƒH[ƒ€·‚ğ–„‚ß‚é‚½‚ß‚Ìƒ‰ƒCƒuƒ‰ƒŠ
+  - libepos ƒ‚[ƒ^[ƒhƒ‰ƒCƒo‚ğg‚¤‚½‚ß‚Ìƒ‰ƒCƒuƒ‰ƒŠ
+  - libpcanbasic PCAN-USBƒP[ƒuƒ‹‚ğg‚¤‚½‚ß‚Ìƒ‰ƒCƒuƒ‰ƒŠBWindowsê—p
+  - libsocketcan PCAN-USBƒP[ƒuƒ‹‚ğLinux‚Åg‚¤ê‡‚Ìƒ‰ƒCƒuƒ‰ƒŠB
+  - src Udero‚Ìƒ‰ƒCƒuƒ‰ƒŠ
+  - thirdpary ƒT[ƒhƒp[ƒeƒB[»‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚Ì“ü‚Á‚½ƒfƒBƒŒƒNƒgƒŠ
+  - CMakeLists.txt
+  - README.md ‚±‚Ìƒtƒ@ƒCƒ‹‚Å‚·B
+
 
 
 ## Authors
