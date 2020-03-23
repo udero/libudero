@@ -166,6 +166,35 @@ void UderoImpl::goHomeInner(bool force) {
   }
 
   UTRACE(" HOMING: 1st Stage:");
+
+
+  ppJoints[4]->setMode(technotools::MODE_VELOCITY);
+  ppJoints[5]->setMode(technotools::MODE_VELOCITY);
+  float vf = 0.1;
+  if (ppJoints[5]->getDigitalInput() == 0) {
+      while (ppJoints[5]->getDigitalInput() == 0) {
+          ppJoints[4]->moveVelocity(vf);
+          ppJoints[5]->moveVelocity(-vf);
+      }
+      while (ppJoints[5]->getDigitalInput() != 0) {
+          ppJoints[4]->moveVelocity(-vf);
+          ppJoints[5]->moveVelocity(vf);
+      }
+  }
+  else if (ppJoints[5]->getDigitalInput() != 0) {
+      while (ppJoints[5]->getDigitalInput() != 0) {
+          ppJoints[4]->moveVelocity(-vf);
+          ppJoints[5]->moveVelocity(vf);
+      }
+  }
+
+  ssr::Thread::Sleep(1000);
+  ppJoints[4]->moveVelocity(0);
+  ppJoints[5]->moveVelocity(0);
+
+  ppJoints[4]->setMode(technotools::MODE_POSITION);
+  ppJoints[5]->setMode(technotools::MODE_POSITION);
+
   //ppJoints[4]->setMode(reharo::MODE_INACTIVE);
   //ppJoints[5]->setMode(reharo::MODE_INACTIVE);
 

@@ -34,7 +34,6 @@ int main(const int argc, const char* argv[]) {
 			int force = 0;
 			if (argc_ >= 3) {
 				force = atoi(argv_[2].c_str());
-				//      std::cout << "Now start homing for joint(" << id << ")" << std::endl;
 			}
 
 			int wait = 1;
@@ -52,9 +51,6 @@ int main(const int argc, const char* argv[]) {
 
 			if (id == 4 || id == 5) {
 				udero->setJointMode(id, technotools::MODE_POSITION);
-				udero->spin();
-				//ssr::Thread::Sleep(100);
-				//udero->setJointMode(5, technotools::MODE_POSITION);
 				udero->spin();
 				ssr::Thread::Sleep(100);
 				homing_wrist(udero, id, force);
@@ -77,6 +73,9 @@ int main(const int argc, const char* argv[]) {
 
 		}
 		else {
+			for (int i = 0; i < 7; i++) {
+				udero->setJointMode(i, technotools::MODE_POSITION);
+			}
 			udero->goHome(true);
 			udero->spin();
 			ssr::Thread::Sleep(100);
