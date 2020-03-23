@@ -12,18 +12,19 @@ UderoCANJoint::UderoCANJoint(const uint32_t& id, canopen::CANopen* pCANopen, dou
 	gearRatio, EncoderRes, min, max);
   UVERBOSE(" - Creating EPOS Node Object.");
   try {
-  m_pEPOS = static_cast<maxon::EPOS*>(pCANopen->initNode(id));
+      m_pEPOS = static_cast<maxon::EPOS*>(pCANopen->initNode(id));
 
-  m_polar = 1;
-  accelBuffer = 0;
-  velocityBuffer = 0;
+      m_polar = 1;
+      accelBuffer = 0;
+      velocityBuffer = 0;
 
-  m_pEPOS->start();
+      m_pEPOS->start();
 
-  for (int i = 0; i < NUM_HOMING_PARAM; i++) {
-    homing_param[i] = default_homing_param[m_CANID - 1][i];
-  }
+      for (int i = 0; i < NUM_HOMING_PARAM; i++) {
+        homing_param[i] = default_homing_param[m_CANID - 1][i];
+      }
   } catch (std::exception& ex) {
+      UERROR("Exception in UderoCANJoint::UderoCANJoint(%d): %s", id, ex.what());
     std::cerr << "Exception when UderoCANJoint::UderoCANJoint()" << std::endl;
     std::cerr << ex.what() << std::endl;
     throw ex;
@@ -125,7 +126,7 @@ UderoREAL UderoCANJoint::getPosition(bool PDO) {
   UVERBOSE("UderoCANJoint(%d)::getPosition(PDO=%d)", m_CANID, PDO);
 #if USE_PDO
   if (PDO) {
-    ssr::TimeSpec timeout(0, 100 * 1000);
+    ssr::TimeSpec timeout(0, 500 * 1000);
     int32_t pos;
     uint16_t stat;
     if (m_pEPOS->tryReadByPDO<PDO1, int32_t, uint16_t>(&pos, &stat)) {
@@ -133,7 +134,7 @@ UderoREAL UderoCANJoint::getPosition(bool PDO) {
     }
     return m_jointPosBuffer;
   } else {
-    ssr::TimeSpec timeout(0, 100 * 1000);
+    ssr::TimeSpec timeout(0, 500 * 1000);
     m_jointPosBuffer = m_polar * inc_to_pos(m_pEPOS->getActualPosition(timeout));
     return m_jointPosBuffer;
   }
@@ -156,8 +157,8 @@ double UderoCANJoint::getHomingSpeed() {
 
 void UderoCANJoint::goHome() {
   UDEBUG("UderoCANJoint(%d)::goHome()", this->m_pEPOS->getNodeId());
-  ssr::TimeSpec sleeptime(0, 10 * 1000);
-  ssr::TimeSpec timeout(0, 400 * 1000);
+  ssr::TimeSpec sleeptime(0, 100 * 1000);
+  ssr::TimeSpec timeout(0, 800 * 1000);
   bool homing_setting = false;
   for (int i = 0; i < 5; i++) {
     try {
@@ -165,10 +166,10 @@ void UderoCANJoint::goHome() {
       m_pEPOS->setOperationMode(MODESOFOPERATION_HOMINGMODE);
 
       UTRACE(" - enabling Operation");
-      m_pEPOS->enableOperation(timeout);
+      m_pEPOS->enableOperation();
 
       UTRACE(" - waiting State Changed to STATE_OPERATIONABLE");
-      m_pEPOS->waitStateChanged(STATE_OPERATIONENABLE, 10, sleeptime, timeout);
+      m_pEPOS->waitStateChanged(STATE_OPERATIONENABLE, 10, sleeptime /*, timeout*/);
 
       if (homing_setting) {
 	UTRACE(" - setting Homing Method to %d", homing_param[0]);
@@ -219,7 +220,7 @@ void UderoCANJoint::waitHoming() {
 }
 
 bool UderoCANJoint::isHomed() {
-  ssr::TimeSpec timeout(0, 30*1000);
+  ssr::TimeSpec timeout(0, 300*1000);
   return m_pEPOS->isHomed(timeout);
 }
 

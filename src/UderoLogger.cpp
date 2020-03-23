@@ -9,6 +9,14 @@
 int g_loglevel = UDERO_VERBOSE;
 FILE* g_logfile = NULL;
 
+FILE* getLogFile() {
+    return g_logfile;
+}
+
+void setLogFile(FILE* fp) {
+    g_logfile = fp;
+}
+
 bool ISLOG(UDERO_LOGLEVEL level) {
 	return g_loglevel >= level;
 }

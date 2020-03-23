@@ -107,8 +107,8 @@ namespace ssr {
 
       axis[0] = ((float)joyInfo_.dwXpos - 32767.0f) / 32767.0f;
       axis[1] = ((float)joyInfo_.dwYpos - 32767.0f) / 32767.0f;
-      axis[2] = ((float)joyInfo_.dwZpos - 32767.0f) / 32767.0f;
-      axis[3] = ((float)joyInfo_.dwUpos - 32767.0f) / 32767.0f;
+      axis[3] = ((float)joyInfo_.dwZpos - 32767.0f) / 32767.0f;
+      axis[2] = ((float)joyInfo_.dwUpos - 32767.0f) / 32767.0f;
       axis[4] = ((float)joyInfo_.dwRpos - 32767.0f) / 32767.0f;
 
       switch (joyInfo_.dwPOV) {

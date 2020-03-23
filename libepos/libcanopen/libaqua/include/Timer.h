@@ -13,6 +13,7 @@
 #ifdef WIN32
 #include <windows.h>
 #include <mmsystem.h>
+#include <chrono>
 #else
 #include <unistd.h>
 #include <time.h>
@@ -44,6 +45,8 @@ namespace ssr {
     LARGE_INTEGER m_Frequency;
     LARGE_INTEGER m_Before;
     LARGE_INTEGER m_After;
+
+    std::chrono::system_clock::time_point  start_;
 #else
     struct timeval m_Before;
     struct timeval m_After;
@@ -63,7 +66,7 @@ namespace ssr {
       memset(&m_Frequency, 0, sizeof(LARGE_INTEGER));
       memset(&m_Before, 0, sizeof(LARGE_INTEGER));
       memset(&m_After, 0, sizeof(LARGE_INTEGER));
-      QueryPerformanceFrequency(&m_Frequency);
+      //QueryPerformanceFrequency(&m_Frequency);
 #endif
 
     }
@@ -89,7 +92,8 @@ namespace ssr {
      */
     void tick(void) {
 #ifdef WIN32
-      ::QueryPerformanceCounter(&m_Before);	
+        start_ = std::chrono::system_clock::now();
+      //::QueryPerformanceCounter(&m_Before);	
 #else
       gettimeofday(&m_Before, NULL);
 #endif
@@ -105,10 +109,12 @@ namespace ssr {
      */
     void tack(TimeSpec* currentTime) {
 #ifdef WIN32
-	QueryPerformanceCounter(&m_After);
-	DWORD dwTime = (DWORD)((m_After.QuadPart - m_Before.QuadPart) * 1000000 / m_Frequency.QuadPart);
-	currentTime->sec =  dwTime / 1000000;
-	currentTime->usec = dwTime % 1000000;
+        std::chrono::system_clock::time_point end = std::chrono::system_clock::now();
+	//QueryPerformanceCounter(&m_After);
+	//DWORD dwTime = (DWORD)((m_After.QuadPart - m_Before.QuadPart) * 1000000 / m_Frequency.QuadPart);
+        double duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start_).count();
+	currentTime->sec =  (long)(duration / 1000000);
+	currentTime->usec = duration - currentTime->sec * 1000000;
 #else
 	//clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &m_After);
 	//uint64_t dwTime = (m_After.tv_sec - m_Before.tv_sec) * 1000 * 1000 + (m_After.tv_nsec - m_Before.tv_nsec) * 1000;

@@ -14,7 +14,7 @@
 #include <math.h>
 #include <string>
 #include <vector>
-
+#include <stdio.h>
 #include "defines.h"
 #include "kinematics.h"
 #include "UderoException.h"

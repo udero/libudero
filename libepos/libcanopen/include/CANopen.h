@@ -10,7 +10,7 @@
 #include "Thread.h"
 #include "Node.h"
 #include "NodeFactory.h"
-
+#include "CANLogger.h"
 
 /**
  * @if jp

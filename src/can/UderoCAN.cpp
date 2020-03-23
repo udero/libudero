@@ -41,7 +41,7 @@ private:
 public:
   UderoCAN(canopen::ICANInterface* pCAN, const std::string& settingFilename) : UderoImpl(settingFilename), m_pCAN(pCAN) {
     try {
-      UTRACE("UderoCAN::UderoCAN(");
+      UINFO("UderoCAN::UderoCAN(");
       m_pCANopen = new canopen::CANopen(m_pCAN);
       m_pCANopen->registerNodeFactory(new maxon::EPOSFactory());
       numJoints = 7;
@@ -60,6 +60,7 @@ public:
 	    jointPos_.push_back(0);
       }
     } catch (std::exception& ex) {
+        UERROR("Exception in UderoCAN::UderoCAN(): %s", ex.what());
       std::cerr << "Exception when UderoCAN::UderoCAN()" << std::endl;
       std::cerr << ex.what() << std::endl;
       throw ex;
@@ -83,23 +84,30 @@ IUdero* createCANUdero(const technotools::UderoConnectionProfile& profile) {
   UINFO(" - canFilename    = %s", profile.canFilename.c_str());
   UINFO(" - canDeviceID    = %x", profile.canDeviceID);
   UINFO(" - settingFilename= %s", profile.settingFilename.c_str());
-
+  try {
 #ifdef WIN32
-  UTRACE("peaksystem::CANUSB creating...");
-  peaksystem::PCANUSB* pCAN = new peaksystem::PCANUSB(profile.canDeviceID);
-  UTRACE("peaksystem::CANUSB created");
+      UTRACE("peaksystem::CANUSB creating...");
+      peaksystem::PCANUSB* pCAN = new peaksystem::PCANUSB(profile.canDeviceID);
+      UTRACE("peaksystem::CANUSB created");
 #else 
-  UTRACE("ssr::SocketCAN creating with(%s)...", profile.canFilename.c_str());
-  ssr::SocketCAN* pCAN = new ssr::SocketCAN(profile.canFilename.c_str());
-  UTRACE("ssr::SocketCAN created");
+      UTRACE("ssr::SocketCAN creating with(%s)...", profile.canFilename.c_str());
+      ssr::SocketCAN* pCAN = new ssr::SocketCAN(profile.canFilename.c_str());
+      UTRACE("ssr::SocketCAN created");
 #endif  
 
-  UTRACE("ICANInterface initializing...");
-  pCAN->initialize(ICAN_BAUD_1M);
-  UTRACE("ICANInterface initialized");
-  UTRACE("reharo::UderoCAN creating");
-  UderoCAN* udero = new UderoCAN(pCAN, profile.settingFilename);
-  UTRACE("reharo::UderoCAN created");
-  return udero;
+      UTRACE("ICANInterface initializing...");
+      pCAN->initialize(ICAN_BAUD_1M);
+      UTRACE("ICANInterface initialized");
+      UTRACE("reharo::UderoCAN creating");
+      UderoCAN* udero = new UderoCAN(pCAN, profile.settingFilename);
+      UTRACE("reharo::UderoCAN created");
+      return udero;
+  }
+  catch (std::exception & ex) {
+      UERROR("Exception in technotools::createCANUdero(): %s", ex.what());
+      std::cerr << "Exception when technotools::createCANUdero()" << std::endl;
+      std::cerr << ex.what() << std::endl;
+      throw ex;
+  }
 }
 

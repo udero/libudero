@@ -61,7 +61,7 @@ bool loop(technotools::IUdero* udero, ssr::Joystick* joy, bool moving[7], bool* 
     std::cout << __FILE__ << "Exception occurred in Joystick::update():" << ex.what() << std::endl;
     throw ex;
   }
-
+ 
   std::vector<double> pos, vel;
   try {
     udero->spin();

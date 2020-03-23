@@ -1,4 +1,4 @@
-set(_srcs ${headers} CANopen.cpp PDOProtocol.cpp SDOProtocol.cpp Node.cpp)
+set(_srcs ${headers} CANopen.cpp PDOProtocol.cpp SDOProtocol.cpp Node.cpp CANLogger.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libaqua/include)

@@ -8,6 +8,8 @@
 #include "version.h"
 #include "defines.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 
 
 enum UDERO_LOGLEVEL {
@@ -54,4 +56,6 @@ LIBUDERO_API void UDERO_LOG_PRINT(UDERO_LOGLEVEL level, const char* format, ...)
 namespace technotools {
   LIBUDERO_API void initLogger(const int argc, const char* argv[]);
   LIBUDERO_API void finiLogger();
+  LIBUDERO_API FILE* getLogFile();
+  LIBUDERO_API void setLogFile(FILE* fp);
 };

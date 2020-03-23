@@ -13,6 +13,10 @@
 #ifdef WIN32
 #include <Windows.h>
 
+
+#include <chrono>
+#include <thread>`
+
 #define THREAD_ROUTINE DWORD WINAPI
 #else
 #include <time.h>
@@ -118,7 +122,7 @@ namespace ssr {
   /**
    *
    */
-  class Thread {
+  class AQUA_API Thread {
   private:
 #ifdef WIN32
     HANDLE m_Handle;
@@ -163,7 +167,9 @@ namespace ssr {
     
     static void Sleep(unsigned long milliSeconds) {
 #ifdef WIN32
-      ::Sleep(milliSeconds);
+        if (milliSeconds > 0)
+            //::Sleep(milliSeconds);
+std::this_thread::sleep_for(std::chrono::milliseconds(milliSeconds));
 #else
       struct timespec interval;
       interval.tv_sec = milliSeconds / 1000;
