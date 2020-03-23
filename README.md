@@ -88,3 +88,9 @@ This code is allowed to use with Udero (built by Technotools Corpolation.).
 This code is NOT allowed to use not with Udero.
 
 本コードの一部およびすべてをテクノツール社製Udero以外のものと使うことを禁じる。
+
+## 免責事項
+本ソースコードを用いた結果、ユーザが被ったいかなる損害についても、作者およびTechnotoolsは一切の責任を負いません。自己の責任の上で使用して下さい。
+
+## 著作権
+本ソースコードの著作権は、作者であるTechnotoolsに帰属します。
