@@ -1,11 +1,12 @@
-
 /**
  * Udero.h
  * 
  * libuderoをつかうためのメインインターフェースとヘルパー関数
  *
+ * createUdero関数を使ってIUderoインターフェースのオブジェクトを生成して使う。詳しくはappsのサンプルを参照すること。
+ *
  * @author Yuki Suga
- * @copyright Techno Tool, 2015
+ * @copyright Technotools, 2015
  */
 
 #pragma once
@@ -14,7 +15,7 @@
 #include <math.h>
 #include <string>
 #include <vector>
-
+#include <stdio.h>
 #include "defines.h"
 #include "kinematics.h"
 #include "UderoException.h"
@@ -23,25 +24,34 @@
 
 
 
-namespace reharo {
+namespace technotools {
 
+  /**
+   * エラー状態変数
+   */
   enum UDERO_ERROR_ENUM {
     E_TARGETOUTOFRANGE = 1,
     O_OK = 0,
   };
 
+  /**
+   * ホーミングモード
+   */
   enum HomingMode {
     ABSOLUTE_POSITION = 1,
   };
 
+  /**
+   * 関節状態
+   */
   enum JOINT_STATE {
-    ENABLED,
-    DISABLED,
-    FAULT,
+    ENABLED, // サーボON
+    DISABLED, // サーボOFFで待機状態
+    FAULT, // FAULT状態。エラーの状態でリセットを待っている。そのままサーボONにはなれない
   };
   
   /**
-   * ウデロの通信方法を定める構造体
+   * Uderoの通信方法を定める構造体 (SOCKET関連は将来的なアップデートのための予約)
    *
    */
   struct UderoConnectionProfile {
@@ -57,7 +67,7 @@ namespace reharo {
     int32_t logLevel; //< ログレベル [1, 5]
     FILE* logFile;
 
-    std::vector<std::string> unknown_args;
+    std::vector<std::string> unknown_args; // 上記のオプションに捕まらなかったコマンドライン引数。順序は保存される。
   };
 
   /**
@@ -67,7 +77,7 @@ namespace reharo {
 
   /**
    * 実行時引数から接続プロファイルを生成するヘルパー関数
-   * 実行時引数は以下の通り：
+   * 実行時引数は以下の通り：(SOCKET関連は将来的なアップデートのための予約)
    * -c, --connectionType 接続タイプ [CAN|SOCKET|MOCK]
    * -i, --ipAddress SOCKET接続した場合の宛先ホストのIPアドレス
    * -p, --port SOCKET接続した場合の宛先ホストのポート番号
@@ -104,7 +114,7 @@ namespace reharo {
   };
 
   /**
-   * Uderoクラスインターフェース
+   * Uderoクラスインターフェース。このインターフェースでUderoを動かす。
    */
   class IUdero {
   public:
@@ -141,14 +151,24 @@ namespace reharo {
      */
     virtual UderoREAL getJointPosition(const int32_t index) = 0;
 
+    /**
+     * ホーミングモードの設定
+     * @param index
+     * @param mode
+     */
     virtual void setJointHomingMode(const int32_t index, const HomingMode mode) = 0;
 
+    /**
+     * ホーミング指令
+     * @param index
+     */
     virtual void goHomeJoint(const int32_t index) = 0;
+
     /**
      * 各変数の初期化
      */
     virtual void init() = 0;
-    
+
     /**
      * 各変数の終了処理
      */
@@ -327,21 +347,29 @@ namespace reharo {
     virtual bool isJointHomed(const int32_t index) = 0;
 
     /**
-     * クイックストップします
+     * 指定した関節をクイックストップします
      * @param index
      */
     virtual void quickStopJoint(const int32_t index) = 0;
     
     /**
+     * 関節を制御中のモーターコントローラのDigitalInを取得します
+     * @param index
+     * @return DigitalInの状態
      */
     virtual uint16_t getJointDigitalInput(const int32_t index) = 0;
 
 
     /**
+     * 関節の状態を取得します
+     * @param index
+     * @return 関節状態
      */
     virtual JOINT_STATE getJointState(const int32_t index) = 0;
 
     /**
+     * 関節コントローラがFault状態の場合に、それをリセットします。
+     * @param index
      */
     virtual void faultResetJoint(const int32_t index) = 0;
   };

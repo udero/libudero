@@ -10,4 +10,4 @@
 
 #include "udero/Udero.h"
 
-LIBUDERO_API reharo::IUdero* createMockUdero(const reharo::UderoConnectionProfile& profile);
+LIBUDERO_API technotools::IUdero* createMockUdero(const technotools::UderoConnectionProfile& profile);

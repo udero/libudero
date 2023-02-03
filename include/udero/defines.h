@@ -1,8 +1,10 @@
 /** 
- * libudero.h
+ * defines.h
+ *
+ * ライブラリエクスポートなどの設定や基本的な変数の定義
  *
  * @author Yuki Suga
- * @copyright Techno Tool, 2015
+ * @copyright Technotools, 2015
  */
 
 #pragma once

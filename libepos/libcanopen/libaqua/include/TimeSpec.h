@@ -27,7 +27,7 @@ namespace ssr {
 	 *
 	 * @endif
 	 */
-	struct TimeSpec {
+	struct AQUA_API TimeSpec {
 	private:
 
 	public:

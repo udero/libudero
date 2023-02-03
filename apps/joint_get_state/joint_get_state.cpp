@@ -4,17 +4,19 @@
 #include <iomanip>
 #include <vector>
 #include "Thread.h"
-#define LINUX 1
+/// #define LINUX 1
 #include "Joystick.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
-using namespace reharo;
+using namespace technotools;
 
 
 
 
 int main(const int argc, const char* argv[]) {
   try {
+      technotools::initLogger(argc, argv);
     std::cout << "Udero Joint State version 1.0.0" << std::endl;
     UderoConnectionProfile prof = parseArgs(argc, argv);
 
@@ -56,6 +58,7 @@ int main(const int argc, const char* argv[]) {
   } catch (std::exception &ex) {
     std::cout << __FILE__ << "Exception: " << ex.what() << std::endl;
     std::cout << __FILE__ << "Error Exit(-1)" << std::endl;
+    UERROR("Exception:%s", ex.what());
     return -1;
   }
   return 0;

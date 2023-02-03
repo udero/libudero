@@ -27,15 +27,4 @@ const double encoder_res[7] = {
   512,
 };
 
-static const double angle_min_max[7][2] = {
-  {-INFINITY, INFINITY},
-  {-1.5, M_PI/2},
-  { 0, 3.1 },
-  { -INFINITY, INFINITY },
-  { -INFINITY, INFINITY },
-  { -INFINITY, INFINITY },
-  //{ 0, 60 }
-  { -90, 0 }
-};
-
-
+extern double g_angle_min_max[7][2];

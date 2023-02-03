@@ -3,10 +3,9 @@
 #include <iostream>
 #include "Thread.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
-using namespace reharo;
-
-void homing_wrist(IUdero* udero, int id, int force);
+using namespace technotools;
 
 enum RESULT_T {
   ALREADY_HOMED = 1,
@@ -15,6 +14,7 @@ enum RESULT_T {
 
 int main(const int argc, const char* argv[]) {
   try {
+      technotools::initLogger(argc, argv);
     std::cout << "Udero Homing version 1.0.1" << std::endl;
     UderoConnectionProfile prof = parseArgs(argc, argv);
     IUdero* udero = createUdero(prof);
@@ -31,7 +31,7 @@ int main(const int argc, const char* argv[]) {
       if (udero->isJointHomed(id)) {
 	return -ALREADY_HOMED;
       } else {
-	udero->setJointMode(id, reharo::MODE_POSITION);
+	udero->setJointMode(id, technotools::MODE_POSITION);
 	udero->goHomeJoint(id);
       }
       
@@ -39,6 +39,7 @@ int main(const int argc, const char* argv[]) {
     deleteUdero(udero);
   } catch (std::exception &ex) {
     std::cout << "Exception: " << ex.what() << std::endl;
+    UERROR("Exception:%s", ex.what());
     return -EXCEPTION_OCCURRED;
   }
   return 0;

@@ -12,6 +12,7 @@ set(hdrs
  ${CMAKE_CURRENT_SOURCE_DIR}/SDOProtocol.h 
  ${CMAKE_CURRENT_SOURCE_DIR}/type.h 
  ${CMAKE_CURRENT_SOURCE_DIR}/ICANInterface.h
+ ${CMAKE_CURRENT_SOURCE_DIR}/CANLogger.h
 )
 
 set(headers ${hdrs} PARENT_SCOPE)

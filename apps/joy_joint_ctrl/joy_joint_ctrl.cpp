@@ -4,9 +4,9 @@
 #include <iomanip>
 #include <vector>
 #include "Thread.h"
-#define LINUX 1
 #include "Joystick.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
 #ifdef WITH_LEDMATRIX
 #include "devices/ledmatrix.h"
@@ -16,7 +16,7 @@
 #define ledmatrix_buzz(x, y)
 #endif
 
-using namespace reharo;
+using namespace technotools;
 const char* filename = "/dev/ttymxc4";
 
 void debug_joy(ssr::Joystick* joy) {
@@ -32,7 +32,7 @@ void debug_joy(ssr::Joystick* joy) {
 }
 
 
-void debug_udero(reharo::IUdero* udero) {
+void debug_udero(technotools::IUdero* udero) {
   for(int i = 0;i < 6;i++) {
     std::cout << udero->getJointPosition(i);
     if (i != 5) { 
@@ -54,14 +54,14 @@ double update_joint(const double& input, const double& pos, const double thresho
 }
 
 
-bool loop(reharo::IUdero* udero, ssr::Joystick* joy, bool moving[7], bool* folding, int *speed_mode, int max_speed_mode, double* joint_step, double* joint_vel, double* wrist_position_when_pushed) {
+bool loop(technotools::IUdero* udero, ssr::Joystick* joy, bool moving[7], bool* folding, int *speed_mode, int max_speed_mode, double* joint_step, double* joint_vel, double* wrist_position_when_pushed) {
   try {
     joy->update();
   } catch (std::exception& ex) {
     std::cout << __FILE__ << "Exception occurred in Joystick::update():" << ex.what() << std::endl;
     throw ex;
   }
-
+ 
   std::vector<double> pos, vel;
   try {
     udero->spin();
@@ -163,11 +163,11 @@ bool loop(reharo::IUdero* udero, ssr::Joystick* joy, bool moving[7], bool* foldi
 
   if (joy->buttons[4] && !joy->buttons[5]) {
     for(int i = 0;i < 7;i++) {
-      udero->setJointMode(i, reharo::MODE_INACTIVE);
+      udero->setJointMode(i, technotools::MODE_INACTIVE);
     }
   } else if (joy->buttons[5] && !joy->buttons[4]) {
     for(int i = 0;i < 7;i++) {
-      udero->setJointMode(i, reharo::MODE_POSITION);
+      udero->setJointMode(i, technotools::MODE_POSITION);
     }
   }
 
@@ -240,26 +240,31 @@ bool loop(reharo::IUdero* udero, ssr::Joystick* joy, bool moving[7], bool* foldi
 
 int main(const int argc, const char* argv[]) {
   try {
+      technotools::initLogger(argc, argv);
     std::cout << "Udero JoyJointControl version 1.0.3" << std::endl;
     UderoConnectionProfile prof = parseArgs(argc, argv);
     ledmatrix_write(filename, J);
     ssr::Joystick* joy;
     while(true) {
       try {
-	joy = new ssr::Joystick("/dev/input/js0");
+#ifdef WIN32
+        joy = new ssr::Joystick();
+#else
+	    joy = new ssr::Joystick("/dev/input/js0");
+#endif
 	break;
       } catch (std::exception& ex) {
-	std::cout << __FILE__ << "Exception in initializing Joystick:" << ex.what() << std::endl;
+	    std::cout << __FILE__ << "Exception in initializing Joystick:" << ex.what() << std::endl;
       }
     }
     ledmatrix_write(filename, U);
     IUdero *udero;
     while(true) {
       try {
-	udero = createUdero(prof);
-	break;
+	    udero = createUdero(prof);
+	    break;
       } catch (std::exception &ex) {
-	std::cout << __FILE__ << "Exception in initialize Udero:" << ex.what() << std::endl;
+	    std::cout << __FILE__ << "Exception in initialize Udero:" << ex.what() << std::endl;
       }
     }
     ssr::Thread::Sleep(200);
@@ -272,7 +277,7 @@ int main(const int argc, const char* argv[]) {
     }
     if (argc_ >= 2) {
       if (argv_[1] == "n") {
-	do_not_foldin = true;
+	    do_not_foldin = true;
       }
     }
 
@@ -299,13 +304,13 @@ int main(const int argc, const char* argv[]) {
     double wrist_position_when_pushed = 0;
     while(true) {
       if (loop(udero, joy, moving, &folding, &speed_mode, max_speed_mode, joint_step, joint_vel, &wrist_position_when_pushed)) {
-	ledmatrix_write(filename, F);
+	    ledmatrix_write(filename, F);
       }
       ssr::Thread::Sleep(1);
       i++;
       if (i % 10 == 0) {
-	debug_joy(joy);
-	debug_udero(udero);
+	    debug_joy(joy);
+	    debug_udero(udero);
       }
 
     }
@@ -316,6 +321,7 @@ int main(const int argc, const char* argv[]) {
     std::cout << __FILE__ << "Exception: " << ex.what() << std::endl;
     std::cout << __FILE__ << "Error Exit(-1)" << std::endl;
     ledmatrix_write(filename, E);
+    UERROR("Exception:%s", ex.what());
     return -1;
   }
   return 0;

@@ -11,7 +11,7 @@
 #include "EPOS.h"
 
 
-namespace reharo {
+namespace technotools {
 
   class UderoCANJoint : public UderoJoint {
   private:
@@ -30,6 +30,9 @@ namespace reharo {
 
     int homing_param[NUM_HOMING_PARAM];
 
+  private:
+      UderoREAL m_MinAngle;
+      UderoREAL m_MaxAngle;
     //void logprint(int level, const char* format, ...);
   public:
 
@@ -103,11 +106,15 @@ namespace reharo {
     virtual void moveVelocity(const UderoREAL targetVelocity);
     virtual void quickStop();
     virtual void enableOperation();
-  private:
-    UderoREAL m_MinAngle;
-    UderoREAL m_MaxAngle;
+
+  public:
     virtual void setMinMax(const UderoREAL min, const UderoREAL max) {
       m_MinAngle = min; m_MaxAngle = max;
+    }
+
+    virtual void getMinMax(UderoREAL* min, UderoREAL* max) {
+        *min = m_MinAngle;
+        *max = m_MaxAngle;
     }
 
 	virtual uint16_t getDigitalInput();

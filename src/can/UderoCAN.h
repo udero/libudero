@@ -12,6 +12,7 @@
 #include "CANopen.h"
 #include "SocketCAN.h"
 
+
 LIBUDERO_API reharo::IUdero* createCANUdero(const reharo::UderoConnectionProfile& profile);
 
 canopen::ICANInterface* getCAN(reharo::IUdero* udero);

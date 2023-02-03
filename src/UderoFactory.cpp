@@ -16,7 +16,7 @@
 void INIT_LOG(const char* filename, UDERO_LOGLEVEL level);
 void FINI_LOG();
 
-namespace reharo {
+namespace technotools {
 
   inline std::string trim(const std::string& string, const char* removedChara = " \t\v\r\n") {
     std::string res;

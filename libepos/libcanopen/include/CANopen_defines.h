@@ -6,6 +6,7 @@
 #define CANOPEN_DEFINES_HEADER_INCLUDED
 
 
+#define CAN_VERSION_STRING "0.0.1"
 /**
  * @brief DLLエクスポートの設定
  */

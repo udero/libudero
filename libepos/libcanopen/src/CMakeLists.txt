@@ -1,4 +1,4 @@
-set(_srcs ${headers} CANopen.cpp PDOProtocol.cpp SDOProtocol.cpp Node.cpp)
+set(_srcs ${headers} CANopen.cpp PDOProtocol.cpp SDOProtocol.cpp Node.cpp CANLogger.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libaqua/include)
@@ -14,10 +14,10 @@ target_link_libraries(${PROJECT_NAME}Static ${CMAKE_THREAD_LIBS_INIT} ${CAN_LIBR
 set_property(TARGET ${PROJECT_NAME}Static PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET ${PROJECT_NAME}Static APPEND PROPERTY COMPILE_DEFINITIONS EXPORT_${PROJECT_NAME}_STATIC)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+#set_target_properties(${PROJECT_NAME} PROPERTIES
+#    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+#    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+#    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 
 install(TARGETS ${PROJECT_NAME}

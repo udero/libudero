@@ -11,16 +11,16 @@
 #include "can_param.h"
 #include "udero/UderoLogger.h"
 
-using namespace reharo;
+using namespace technotools;
 
 class UderoMock : public UderoImpl {
 public:
   UderoMock(const std::string& filename) : UderoImpl(filename) {
     UTRACE("UderoMock::UderoMock() called");
-    jointPos_.push_back(0);
     numJoints = 7;
-    for (int i = 0; i < numJoints; i++) {
-      ppJoints[i] = new UderoMockJoint(i+1, g_gear_ratio[i], encoder_res[i], angle_min_max[i][0], angle_min_max[i][1]);
+    for (uint32_t i = 0; i < numJoints; i++) {
+		jointPos_.push_back(0);
+		ppJoints[i] = new UderoMockJoint(i+1, g_gear_ratio[i], encoder_res[i], g_angle_min_max[i][0], g_angle_min_max[i][1]);
     }
     UTRACE("UderoMock::UderoMock() ended");
   }
@@ -33,11 +33,11 @@ public:
 };
 
 
-IUdero* createMockUdero(const reharo::UderoConnectionProfile& profile) {
+IUdero* createMockUdero(const technotools::UderoConnectionProfile& profile) {
   UINFO("createMockUdero() called");
-  UTRACE("reharo::UderoMock creating");
+  UTRACE("technotools::UderoMock creating");
   IUdero* udero = new UderoMock(profile.settingFilename);
-  UTRACE("reharo::UderoMock created");
+  UTRACE("technotools::UderoMock created");
   return udero;
 }
 

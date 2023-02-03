@@ -17,8 +17,55 @@
 #include "global_parameter.h"
 #include "SettingFileParser.h"
 
+
+
+double g_foldOutAngle[6] = {
+  0.01,
+  0.78,
+  1.57,
+  0.01,
+  -0.78,
+  0.01
+};
+
+double g_workAngle[6] = {
+  0.78,
+  0.78,
+  1.57,
+  -0.9,
+  -1.3,
+  0.5
+};
+
+double g_foldInAngle[6] = {
+  0.0,
+  // -1.3,
+  -1.5,
+  //  2.8,
+  2.9,
+  0.0,
+  0.0,
+  0.0
+};
+
+double g_foldingSpeed = 0.2;
+
+double g_gear_ratio[7] = {
+  100,
+  //  202, // J2 
+  2020.0 / 7,
+  //  400, // J2 Version 2.0
+  100,
+  // 50, // J4 (J3.5)
+  50, // J4 (J3.5) Version 2.0
+  729 / 25.0 * 4,
+  729 / 25.0 * 4,
+  34.392,
+};
+
+
 // static const float g_foldingSpeed = 0.2;
-using namespace reharo;
+using namespace technotools;
 /// TODO: この値は新1号機のための値
 //double v4_offset = 2.975;
 //double v3_offset = M_PI;
@@ -119,6 +166,35 @@ void UderoImpl::goHomeInner(bool force) {
   }
 
   UTRACE(" HOMING: 1st Stage:");
+
+
+  ppJoints[4]->setMode(technotools::MODE_VELOCITY);
+  ppJoints[5]->setMode(technotools::MODE_VELOCITY);
+  float vf = 0.1;
+  if (ppJoints[5]->getDigitalInput() == 0) {
+      while (ppJoints[5]->getDigitalInput() == 0) {
+          ppJoints[4]->moveVelocity(vf);
+          ppJoints[5]->moveVelocity(-vf);
+      }
+      while (ppJoints[5]->getDigitalInput() != 0) {
+          ppJoints[4]->moveVelocity(-vf);
+          ppJoints[5]->moveVelocity(vf);
+      }
+  }
+  else if (ppJoints[5]->getDigitalInput() != 0) {
+      while (ppJoints[5]->getDigitalInput() != 0) {
+          ppJoints[4]->moveVelocity(-vf);
+          ppJoints[5]->moveVelocity(vf);
+      }
+  }
+
+  ssr::Thread::Sleep(1000);
+  ppJoints[4]->moveVelocity(0);
+  ppJoints[5]->moveVelocity(0);
+
+  ppJoints[4]->setMode(technotools::MODE_POSITION);
+  ppJoints[5]->setMode(technotools::MODE_POSITION);
+
   //ppJoints[4]->setMode(reharo::MODE_INACTIVE);
   //ppJoints[5]->setMode(reharo::MODE_INACTIVE);
 
@@ -133,8 +209,8 @@ void UderoImpl::goHomeInner(bool force) {
   }
   else {
     UTRACE(" HOMING: J[1], J[2] is already homed.");
-    ppJoints[1]->setMode(reharo::MODE_POSITION);
-    ppJoints[2]->setMode(reharo::MODE_POSITION);
+    ppJoints[1]->setMode(technotools::MODE_POSITION);
+    ppJoints[2]->setMode(technotools::MODE_POSITION);
     ppJoints[1]->movePositionWithVelocity(0, foldingSpeed);
     ppJoints[2]->movePositionWithVelocity(0, foldingSpeed);
     ppJoints[1]->waitStopped(timeout);
@@ -147,7 +223,7 @@ void UderoImpl::goHomeInner(bool force) {
       try {
 	    if (!ppJoints[4]->isHomed()) {
 		  UTRACE(" HOMING: J[4]");
-		  ppJoints[5]->setMode(reharo::MODE_VELOCITY);
+		  ppJoints[5]->setMode(technotools::MODE_VELOCITY);
 	      ppJoints[5]->setAcceleration(10);
 		  ppJoints[4]->goHome();
           while (1) {
@@ -158,10 +234,10 @@ void UderoImpl::goHomeInner(bool force) {
 			  ssr::Thread::Sleep(100);
 		  }
 		  ppJoints[5]->quickStop();
-	      ppJoints[5]->setMode(reharo::MODE_POSITION);
+	      ppJoints[5]->setMode(technotools::MODE_POSITION);
 	    } else {
 	      UTRACE(" HOMING: J[4] is already homed.");
-	      ppJoints[4]->setMode(reharo::MODE_POSITION);
+	      ppJoints[4]->setMode(technotools::MODE_POSITION);
 	      ppJoints[4]->movePositionWithVelocity(0, foldingSpeed);
 	      ppJoints[4]->waitStopped(timeout);
 		}
@@ -178,7 +254,7 @@ void UderoImpl::goHomeInner(bool force) {
 	if (!ppJoints[5]->isHomed()) {
 	  UTRACE(" HOMING: J[5]");
 
-	  ppJoints[4]->setMode(reharo::MODE_VELOCITY);
+	  ppJoints[4]->setMode(technotools::MODE_VELOCITY);
 	  ppJoints[4]->setAcceleration(10);
 	  ppJoints[5]->goHome();
 	  while (1) {
@@ -189,12 +265,12 @@ void UderoImpl::goHomeInner(bool force) {
 		  ssr::Thread::Sleep(100);
 	  }
 	  ppJoints[4]->quickStop();
-	  ppJoints[4]->setMode(reharo::MODE_POSITION);
-	  ppJoints[5]->setMode(reharo::MODE_POSITION);
+	  ppJoints[4]->setMode(technotools::MODE_POSITION);
+	  ppJoints[5]->setMode(technotools::MODE_POSITION);
 	}
 	else {
 	  UTRACE(" HOMING: J[5] already homed.");
-	  ppJoints[5]->setMode(reharo::MODE_POSITION);
+	  ppJoints[5]->setMode(technotools::MODE_POSITION);
 	  ppJoints[5]->movePositionWithVelocity(0, foldingSpeed);
 	  ppJoints[5]->waitStopped(timeout);
 	}
@@ -208,8 +284,8 @@ void UderoImpl::goHomeInner(bool force) {
   }
   else {
     UTRACE(" HOMING: J[4] J[5] already homed.");
-    ppJoints[4]->setMode(reharo::MODE_POSITION);
-    ppJoints[5]->setMode(reharo::MODE_POSITION);
+    ppJoints[4]->setMode(technotools::MODE_POSITION);
+    ppJoints[5]->setMode(technotools::MODE_POSITION);
     ppJoints[4]->movePositionWithVelocity(0, foldingSpeed);
     ppJoints[5]->movePositionWithVelocity(0, foldingSpeed);
     ppJoints[4]->waitStopped(timeout);
@@ -238,9 +314,9 @@ void UderoImpl::goHomeInner(bool force) {
   }
   else {
     UTRACE(" HOMING: J[0] J[3] J[6] already homed.");
-    ppJoints[0]->setMode(reharo::MODE_POSITION);
-    ppJoints[3]->setMode(reharo::MODE_POSITION);
-    ppJoints[6]->setMode(reharo::MODE_POSITION);
+    ppJoints[0]->setMode(technotools::MODE_POSITION);
+    ppJoints[3]->setMode(technotools::MODE_POSITION);
+    ppJoints[6]->setMode(technotools::MODE_POSITION);
     ppJoints[0]->movePositionWithVelocity(0, foldingSpeed);
     ppJoints[3]->movePositionWithVelocity(0, foldingSpeed);
     ppJoints[6]->movePositionWithVelocity(50, 10);
@@ -390,7 +466,7 @@ void UderoImpl::foldIn(bool blocking) {
 void UderoImpl::foldInImpl()  {
   UDEBUG("UderoImpl::foldInImpl()");
   for (int i = 0; i < 7; i++) {
-    ppJoints[i]->setMode(reharo::MODE_POSITION);
+    ppJoints[i]->setMode(technotools::MODE_POSITION);
   }
 
   double j0 = ppJoints[0]->getPosition();
@@ -418,7 +494,7 @@ void UderoImpl::foldOut(bool blocking) {
 void UderoImpl::foldOutImpl() {
   UDEBUG("UderoImpl::foldOutImpl()");
   for (int i = 0; i < 7; i++) {
-    ppJoints[i]->setMode(reharo::MODE_POSITION);
+    ppJoints[i]->setMode(technotools::MODE_POSITION);
   }
 
   double j1 = ppJoints[1]->getPosition();
@@ -476,25 +552,24 @@ void UderoImpl::moveJoints(const std::vector<double>& pos_, const std::vector<do
 	     pos[0], pos[1], pos[2], pos[3], pos[4], pos[5],
 	     vel[0], vel[1], vel[2], vel[3], vel[4], vel[5]);
     for (int i = 0; i < 6; i++) {
-      if (pos[i] < angle_min_max[i][0]) {
-	pos[i] = angle_min_max[i][0];
-	UVERBOSE(" - JointRange Error (index=%d, passedValue=%f, min=%f)", i, pos[i], angle_min_max[i][0]);
-      } else if (pos[i] > angle_min_max[i][1]) {
-	pos[i] = angle_min_max[i][1];
-	UVERBOSE(" - JointRange Error (index=%d, passedValue=%f, max=%f)", i, pos[i], angle_min_max[i][1]);
+      
+      if (pos[i] < g_angle_min_max[i][0]) {
+	    pos[i] = g_angle_min_max[i][0];
+	    UVERBOSE(" - JointRange Error (index=%d, passedValue=%f, min=%f)", i, pos[i], g_angle_min_max[i][0]);
+      } else if (pos[i] > g_angle_min_max[i][1]) {
+	    pos[i] = g_angle_min_max[i][1];
+	    UVERBOSE(" - JointRange Error (index=%d, passedValue=%f, max=%f)", i, pos[i], g_angle_min_max[i][1]);
       }
     }
     for (int index = 0; index < 6; index++) {
       if (0 <= index && index < 4) {
-	if (index == 3) {
-	  ppJoints[index]->movePositionWithVelocity(pos[index] - v3_offset, vel[index]);
-	}
-	else {
-	  ppJoints[index]->movePositionWithVelocity(pos[index], vel[index]);
-	}
-      }
-      else if (index == 6) {
-	ppJoints[index]->movePositionWithVelocity(pos[index], vel[index]);
+	    if (index == 3) {
+	      ppJoints[index]->movePositionWithVelocity(pos[index] - v3_offset, vel[index]);
+	    } else {
+	      ppJoints[index]->movePositionWithVelocity(pos[index], vel[index]);
+	    }
+      } else if (index == 6) {
+	    ppJoints[index]->movePositionWithVelocity(pos[index], vel[index]);
       }
     }
     
@@ -515,9 +590,9 @@ double UderoImpl::getJointPos(const int index, const bool PDO) {
   _checkJointIndex(index);
   UVERBOSE("UderoImpl::getJointPos(index=%d, PDO=%d)", index, PDO);
   if ((index >= 0 && index < 4) ) {
-	  if (index == 3) {
-		  return ppJoints[index]->getPosition(PDO) + v3_offset;
-	  }
+	if (index == 3) {
+	  return ppJoints[index]->getPosition(PDO) + v3_offset;
+	}
     return ppJoints[index]->getPosition(PDO);
   }
 

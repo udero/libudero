@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace reharo {
+namespace technotools {
 
   class UderoException : public std::exception {
   private:
@@ -11,7 +11,7 @@ namespace reharo {
   UderoException(const std::string& msg) : msg(msg) {}
   UderoException(const char* msg): msg(msg) {}
 
-    virtual ~UderoException() throw() {}
+    virtual ~UderoException() {}
 
   public:
     const char* what() const throw() {

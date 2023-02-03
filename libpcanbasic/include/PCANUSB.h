@@ -1,5 +1,9 @@
 ﻿/**
  * @file PCANUSB.h
+ *
+ * PeakSystemのPCAN-USB利用のためのラッパーライブラリ
+ *
+ * @copyright Technotools, 2015
  */
 
 #ifndef PCANUSB_HEADER_INCLUDED

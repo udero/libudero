@@ -9,7 +9,7 @@
 #include "udero/UderoLogger.h"
 #include "udero/Udero.h"
 
-namespace reharo {
+namespace technotools {
   
   /**
    * 関節レベルでのサービスを抽象化するインターフェース
@@ -48,11 +48,10 @@ namespace reharo {
      */
     virtual void waitHoming() = 0; 
 
-	/*
-	 *
+	/**
+	 * ホーミング時の速度を取得
 	 */
 	virtual UderoREAL getHomingSpeed() = 0;
-
 
     /**
      * リセットする
@@ -65,28 +64,78 @@ namespace reharo {
     virtual bool isHomed() = 0;
 
     /**
-     * ホーミングのオフセットを設定する
+     * ホーミングのオフセットを設定
      */
     virtual void setHomeOffset(const int32_t offsetCount) = 0;
 
+    /**
+     * ホーミングモードを設定
+     */
     virtual void setHomingMode(const HomingMode mode) = 0;
 
     /**
      * 停止状態まで処理を止めます。
      */
     virtual void waitStopped(int32_t timeoutMillis = 1000) = 0;
+
+    /**
+     * 現在の角度を取得
+     */
     virtual UderoREAL getPosition(bool PDO=true) = 0;
+
+    /**
+     * 関節の角度と速度を指定して動かす
+     */
+    virtual void movePositionWithVelocity(const UderoREAL targetPosition, const UderoREAL targetVelocity, const bool minMaxOff = false) = 0;
+
+    /**
+     * 関節のモードを設定
+     */
     virtual void setMode(const UderoJointMode& mode) = 0;
+
+    /**
+     * 加速度を設定
+     */
     virtual void setAcceleration(const UderoREAL accel) = 0;
-    virtual void movePositionWithVelocity(const UderoREAL targetPosition, const UderoREAL targetVelocity, const bool minMaxOff=false) = 0;
+
+    /**
+     * 速度を指定して動かす
+     */
     virtual void moveVelocity(const UderoREAL targetVelocity) = 0;
+
+    /**
+     * 現在速度を取得
+     */
 	virtual UderoREAL getActualVelocity() = 0;
+
+    /**
+     * QuickStopする
+     */
     virtual void quickStop() = 0;
+
+    /**
+     * Operationを開始する
+     */
     virtual void enableOperation() = 0;
+
+    /**
+     * 最小・最大角度を設定する
+     */
     virtual void setMinMax(const UderoREAL min, const UderoREAL max) = 0;
 
+    /**
+     * 最小・最大角度を取得する
+     */
+    virtual void getMinMax(UderoREAL* min, UderoREAL* max) = 0;
+
+    /**
+     * デジタル入力端子の状態を取得する
+     */
 	virtual uint16_t getDigitalInput() = 0;
 
+    /**
+     * 関節の状態を取得する
+     */
 	virtual JOINT_STATE getJointState() = 0;
 
   };
@@ -100,7 +149,7 @@ namespace reharo {
     void _checkJointIndex(const int index) {
       if (index < 0 || index >= numJoints) {
 	UERROR("JointIndexOutOfRange");
-	throw reharo::JointIndexOutOfRangeException();
+	throw technotools::JointIndexOutOfRangeException();
       }
     }
     

@@ -1,17 +1,17 @@
+#include "ServerSocket.h"
 #include <stdlib.h>
-
 #include <iostream>
 #include <sstream>
 #include "Thread.h"
-#include "ServerSocket.h"
 #include "udero/Udero.h"
+#include "udero/UderoLogger.h"
 
 
-using namespace reharo;
+using namespace technotools;
 
 void homing_wrist(IUdero* udero, int id);
 
-int port = 43000;
+int port = 8000;
 
 void write_line(ssr::Socket& s, const std::string& line) {
   s.Write(line.c_str(), line.length());
@@ -98,6 +98,8 @@ std::string trim(const std::string& string, const char* trimCharacterList = " \t
 
 int main(const int argc_, const char* argv_[]) {
   try {
+	  technotools::initLogger(argc_, argv_);
+	  ssr::SocketInitializer();
     UderoConnectionProfile prof = parseArgs(argc_, argv_);
     IUdero* udero = createUdero(prof);
     int argc = prof.unknown_args.size();
@@ -129,12 +131,12 @@ int main(const int argc_, const char* argv_[]) {
 	    break;
 	  } else if (cmd == "lock") {
 	    for(int i = 0;i < 7;i++) {
-	      udero->setJointMode(i, reharo::MODE_POSITION);
+	      udero->setJointMode(i, technotools::MODE_POSITION);
 	    }
 	    write_line(s, "lock OK");
 	  } else if (cmd == "unlock") {
 	    for(int i = 0;i < 7;i++) {
-	      udero->setJointMode(i, reharo::MODE_INACTIVE);
+	      udero->setJointMode(i, technotools::MODE_INACTIVE);
 	    }
 	    write_line(s, "unlock OK");
 	  } else if (cmd == "foldin") {
@@ -245,14 +247,16 @@ int main(const int argc_, const char* argv_[]) {
 	}
 	s.Close();
       } catch (ssr::SocketException& ex) {
-	std::cout << "SocketException:" << ex.what() << std::endl;
+		  UERROR("SocketException:%s", ex.what());
+		  std::cout << "SocketException:" << ex.what() << std::endl;
       }
     }
 
 
     deleteUdero(udero);
   } catch (std::exception &ex) {
-    std::cout << "Exception: " << ex.what() << std::endl;
+	  UERROR("Exception:%s", ex.what());
+	  std::cout << "Exception: " << ex.what() << std::endl;
     return -1;
   }
   return 0;

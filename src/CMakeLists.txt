@@ -33,8 +33,8 @@ if (BUILD_CAN)
   set(_srcs ${headers} ${basic_srcs} ${can_srcs})
   if(WIN32)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libpcanbasic/include)
-    set(PCANBASIC_LIBDIR ${CMAKE_CURRENT_SOURCE_DIR}/../libpcanbasic/PCAN_Basic_API/Win32/VC_LIB)
-    link_directories(${PCANBASIC_LIBDIR})
+    #set(PCANBASIC_LIBDIR ${CMAKE_CURRENT_SOURCE_DIR}/../libpcanbasic/PCAN_Basic_API/Win32/VC_LIB)
+    link_directories(${PCANBASIC_LIBDIRS})
     set(CANLIB epos canopen pcanusbbasic)
   else(WIN32)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libsocketcan/include)
@@ -60,10 +60,10 @@ else (BUILD_CAN)
 
 endif (BUILD_CAN)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+#set_target_properties(${PROJECT_NAME} PROPERTIES
+#    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+#    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+#    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 
 install(TARGETS ${PROJECT_NAME} 

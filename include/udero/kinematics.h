@@ -1,6 +1,10 @@
 /**
  * @file kinematics.h
  *
+ * Uderoの順・逆運動学計算ライブラリ
+ *
+ * @author Yuki Suga
+ * @copyright Technotools, 2015
  */
 
 #pragma once
