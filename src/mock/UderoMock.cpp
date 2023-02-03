@@ -26,6 +26,10 @@ public:
   }
 
   virtual ~UderoMock() {}
+
+  virtual std::string getClassName() const {
+    return "UderoMock";
+  }
 };
 
 

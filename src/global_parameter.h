@@ -51,4 +51,11 @@ double g_gear_ratio[7] = {
   34.392,
 };
 
+
 #endif
+
+static double base_gear_ratio = 100 * 40;
+static double base_encoder_res = 512;
+static double base_angle_min = -1000;
+static double base_angle_max = 0.0;
+

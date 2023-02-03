@@ -14,6 +14,7 @@ set(basic_srcs
 set(can_srcs 
  ${CMAKE_CURRENT_SOURCE_DIR}/can/UderoCAN.cpp
  ${CMAKE_CURRENT_SOURCE_DIR}/can/UderoCANJoint.cpp
+ ${CMAKE_CURRENT_SOURCE_DIR}/can/UderoBaseCAN.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

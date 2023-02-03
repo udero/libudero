@@ -18,3 +18,17 @@ add_subdirectory(move_gripper)
 add_subdirectory(joy_joint_ctrl)
 add_subdirectory(joint_get_state)
 add_subdirectory(joint_set_state)
+
+add_subdirectory(base_get_angles)
+add_subdirectory(base_set_angles)
+add_subdirectory(base_lock)
+add_subdirectory(base_free)
+add_subdirectory(base_homing)
+
+add_subdirectory(abs_check)
+add_subdirectory(abs_read_angle)
+add_subdirectory(abs_read_joint_angle)
+add_subdirectory(abs_set_id)
+add_subdirectory(abs_set_zero)
+
+add_subdirectory(ledmatrix)

@@ -38,10 +38,12 @@ endif (BUILD_CAN)
 add_subdirectory(include)
 add_subdirectory(src)
 add_subdirectory(apps)
+add_subdirectory(devices)
+add_subdirectory(sample)
 if(FALSE)
 add_subdirectory(test)
-add_subdirectory(sample)
-add_subdirectory(devices)
+
+
 
 endif(FALSE)
 #set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}_test)

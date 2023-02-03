@@ -2,8 +2,10 @@
 #include <stdlib.h>
 
 #include "udero/Udero.h"
+#include "udero/UderoBase.h"
 #include "udero/UderoLogger.h"
 #include "can/UderoCAN.h"
+#include "can/UderoBaseCAN.h"
 //#include "socket/UderoSocket.h"
 #include "mock/UderoMock.h"
 
@@ -244,6 +246,21 @@ LIBUDERO_API void deleteUdero(IUdero* udero) {
   delete udero; 
   UINFO("reharo::deleteUdero() ends");
 }
+
+  LIBUDERO_API IUderoBase* createUderoBase(IUdero* pUdero) {
+    if (pUdero->getClassName() != "UderoCAN") {
+      UWARN("reharo::createUderoBase failed. Currently, UderoBase can be created with UderoCAN.");
+      return NULL;
+
+    }
+    return createCANUderoBase(pUdero);
+  }
+
+  LIBUDERO_API void deleteUderoBase(IUderoBase* udero) {
+    UINFO("reharo::deleteUderoBase()");
+    delete udero;
+    UINFO("reharo::deleteUderoBase() ends");
+  }
 
 
 };

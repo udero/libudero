@@ -110,6 +110,9 @@ namespace reharo {
   public:
     IUdero() {}
     virtual ~IUdero() {}
+
+
+    virtual std::string getClassName() const = 0;
     /**
      * 関節の加速度を設定
      * @param index 関節のインデックス

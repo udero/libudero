@@ -23,6 +23,11 @@ class UderoCAN : public UderoImpl {
 private:
   canopen::ICANInterface *m_pCAN;
   canopen::CANopen* m_pCANopen;
+
+
+public:
+  canopen::ICANInterface* getCAN() { return m_pCAN; }
+  canopen::CANopen* getCANopen() { return m_pCANopen; }
 public:
   UderoCAN(canopen::ICANInterface* pCAN, const std::string& settingFilename) : UderoImpl(settingFilename), m_pCAN(pCAN) {
     try {
@@ -52,6 +57,10 @@ public:
   }
 
   virtual ~UderoCAN() {}
+
+  virtual std::string getClassName() const {
+    return "UderoCAN";
+  }
 
   virtual void reset() {
     UTRACE("UderoCAN::reset()");
@@ -88,3 +97,16 @@ IUdero* createCANUdero(const reharo::UderoConnectionProfile& profile) {
   return udero;
 }
 
+
+
+canopen::ICANInterface* getCAN(reharo::IUdero* udero) {
+  UderoCAN* uderoCAN = dynamic_cast<UderoCAN*>(udero);
+  if (!uderoCAN) return NULL;
+  return uderoCAN->getCAN();
+}
+
+canopen::CANopen* getCANopen(reharo::IUdero* udero) {
+  UderoCAN* uderoCAN = dynamic_cast<UderoCAN*>(udero);
+  if (!uderoCAN) return NULL;
+  return uderoCAN->getCANopen();
+}
